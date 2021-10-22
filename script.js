@@ -30,14 +30,17 @@ const renderCalendar = () => {
 
 	let days = "";
 
+	// TODO could create date objects (year, month, day) inside loop and place day value inside div
+
 	for (let x = firstDayIndex; x > 0; x--){
 		days +=`<div class="prev-date">${prevLastDay - x + 1}</div>`;
 	}
 
 	for (let i = 1; i<= lastDay; i++){
-		days += `<div>${i}</div>`;
+		days += `<div class="curr-date">${i}</div>`;
 	}
 	monthDays.innerHTML = days;
+	// alert(monthDays.innerHTML);
 
 };
 
@@ -56,12 +59,10 @@ class Entry{
 
 renderCalendar();
 
+// alert(document.querySelector(".date h1").innerHTML);
+
 document.querySelector(".days").addEventListener("click", () => {
 	alert("date is clickable!");
+	// alert(document.getElementById(".days div").innerHTML);
 });
 
-// const calendar = document.querySelector("calendar");
-// document.getElementById('app-calendar').innerHTML = calendar;
-
-// const appDiv = document.getElementById('app');
-// appDiv.innerHTML = calendar;
