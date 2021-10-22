@@ -44,19 +44,6 @@ const renderCalendar = () => {
 
 };
 
-class Entry{
-	constructor(date, label, type){
-		this.date = date;
-		this.label = label;
-		this.type = type;
-		
-		/* array.push(obj);
-		*/
-	}
-	
-}
-
-
 renderCalendar();
 
 // alert(document.querySelector(".date h1").innerHTML);
@@ -65,4 +52,30 @@ document.querySelector(".days").addEventListener("click", () => {
 	alert("date is clickable!");
 	// alert(document.getElementById(".days div").innerHTML);
 });
+
+const entryArr = [];
+
+class Entry{
+	constructor(label, type){
+		// this.date = date;
+		this.label = label;
+		this.type = type;
+		
+		 entryArr.push(this);
+		
+	}
+
+	toString(){
+		return JSON.stringify(this);
+	}
+	
+}
+let x = 3;
+const something = window.localStorage;
+// const entryStorage = window.localStorage();
+
+
+const entry = new Entry("did something", "drove carpool");
+const entry2 = new Entry("things", "carpool things");
+document.querySelector(".trip-chips").innerHTML = `<div>${entryArr}</div>`
 
