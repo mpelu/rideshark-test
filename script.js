@@ -39,6 +39,9 @@ const renderCalendar = () => {
 	for (let i = 1; i<= lastDay; i++){
 		days += `<div class="curr-date">${i}</div>`;
 	}
+
+	// TODO next month's first days 
+	
 	monthDays.innerHTML = days;
 	// alert(monthDays.innerHTML);
 
@@ -56,8 +59,8 @@ document.querySelector(".days").addEventListener("click", () => {
 const entryArr = [];
 
 class Entry{
-	constructor(label, type){
-		// this.date = date;
+	constructor(date, label, type){
+		this.date = date;
 		this.label = label;
 		this.type = type;
 		
@@ -70,12 +73,19 @@ class Entry{
 	}
 	
 }
-let x = 3;
-const something = window.localStorage;
-// const entryStorage = window.localStorage();
+// let x = 3;
+const entryStorage = window.localStorage;
+
+// const filterEntriesByDate = () => {
+// };
 
 
-const entry = new Entry("did something", "drove carpool");
-const entry2 = new Entry("things", "carpool things");
-document.querySelector(".trip-chips").innerHTML = `<div>${entryArr}</div>`
+const entry0 = new Entry("March", "did something", "drove carpool");
+const entry1 = new Entry("April", "things", "carpool things");
+const entry2 = new Entry("March", "did something", "some stuff");
+
+let filteredEntries = entryArr.filter(entry => entry.date === "March");
+document.querySelector(".trip-chips").innerHTML = `<div>${filteredEntries}</div>`
+
+
 
