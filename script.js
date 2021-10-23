@@ -85,7 +85,15 @@ const entry1 = new Entry("April", "things", "carpool things");
 const entry2 = new Entry("March", "did something", "some stuff");
 
 let filteredEntries = entryArr.filter(entry => entry.date === "March");
-document.querySelector(".trip-chips").innerHTML = `<div>${filteredEntries}</div>`
+// document.querySelector(".trip-chips").innerHTML = `<div>${filteredEntries}</div>`
+document.querySelector(".trip-chips").innerHTML = `<div>${entryArr}</div>`
+
+function userSubmit() {
+	userEntry = new Entry("June", document.getElementById("eLabel").value, document.getElementById("eType").value);
+
+	document.querySelector(".trip-chips").innerHTML = `<div>${entryArr}</div>`
+	return false;
+};
 
 
 
