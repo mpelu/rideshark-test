@@ -1,6 +1,6 @@
 let monthNav = 0;
 let clickedDay = null; //TODO initialize to current date
-let entries = localStorage.getItem('entries') ? JSON.parse(localStorage.getItem('events')) : [];
+let entries = localStorage.getItem('entries') ? JSON.parse(localStorage.getItem('entries')) : [];
 
 const calendar = document.getElementById('calendar');
 
@@ -98,15 +98,7 @@ class Entry{
 		this.type = type;
 		
 		entryArr.push(this);
-	}
-
-	saveEntry(){
-		entries.push({
-			date: this.date,
-			label: this.label,
-			type: this.type,
-		})
-		localStorage.setItem('entries', JSON.stringify(entries));
+		console.log(this);
 	}
 	toString(){
 		return JSON.stringify(this);
@@ -116,17 +108,37 @@ const entry0 = new Entry(4, "did something", "drove carpool");
 const entry1 = new Entry(7, "things", "carpool things");
 const entry2 = new Entry(9, "did something", "some stuff");
 
+entries.push({
+	date: 4,
+	label: "persist- did something",
+	type: "drove carpool",
+});
+entries.push({
+	date: 7,
+	label: "persist- things", 
+	type: "drove carpool",
+});
+entries.push({
+	date: 9,
+	label: "persist- did something else",
+	type: "drove carpool",
+});
+// localStorage.clear();
+console.log(localStorage);
+
 function userSubmit() {
 	userEntry = new Entry(10, document.getElementById("eLabel").value, document.getElementById("eType").value);
+	entries.push({
+		date: 10,
+		label: document.getElementById("eLabel").value,
+		type: document.getElementById("eType").value,
+	});
+	localStorage.setItem('entries', JSON.stringify(entries));
+
+	// entryArr.push(userEntry);
 
 	// TODO function to load filtered entries instead of calling document.etc each time
-	// document.getElementById("trip-chips").innerHTML = `<div>${entryArr}</div>`
-	// entries.push({
-	// 	date: 10,
-	// 	label: document.getElementById("eLabel").value,
-	// 	type: document.getElementById("eType").value,
-	// });
-	// localStorage.setItem('entries', JSON.stringify(events));
+
 
 	// TODO: input text disappear
 	// TODO: visibility = false
