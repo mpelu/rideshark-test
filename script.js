@@ -1,5 +1,7 @@
 const date = new Date();
 
+let clicked = null;
+
 const renderCalendar = () => {
 	date.setDate(1);
 
