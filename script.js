@@ -49,6 +49,16 @@ const renderCalendar = () => {
 
 renderCalendar();
 
+document.querySelector(".prev").addEventListener("click", () => {
+	date.setMonth(date.getMonth() - 1);
+	renderCalendar();
+});
+
+document.querySelector(".next").addEventListener("click", () => {
+	date.setMonth(date.getMonth() + 1);
+	renderCalendar();
+});
+
 // alert(document.querySelector(".date h1").innerHTML);
 
 document.querySelector(".days").addEventListener("click", () => {
@@ -73,7 +83,7 @@ class Entry{
 	}
 	
 }
-// let x = 3;
+
 const entryStorage = window.localStorage;
 
 // const filterEntriesByDate = () => {
@@ -91,6 +101,7 @@ document.querySelector(".trip-chips").innerHTML = `<div>${entryArr}</div>`
 function userSubmit() {
 	userEntry = new Entry("June", document.getElementById("eLabel").value, document.getElementById("eType").value);
 
+	// TODO function to load filtered entries instead of calling document.etc each time
 	document.querySelector(".trip-chips").innerHTML = `<div>${entryArr}</div>`
 	return false;
 };
