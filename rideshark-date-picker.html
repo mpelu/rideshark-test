@@ -1,54 +1,21 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Rideshark</title>
 		<meta charset="utf-8">
-
-			<style>
-			.calendar{				/* height: 60%;				width: 60%; */			}
-			.month{				/* display: flex; */			}
-			.month h1{}
-			.month i{
-				cursor: pointer;
-			}
-			.weekdays{
-				display: flex;
-			}
-			.weekdays div{
-				width: calc(100%/7);
-				/* display: flex; */
-			}
-			.days{
-				/* width: 100%; */
-				display: flex;
-				flex-wrap: wrap;
-				cursor: pointer;
-			}
-			.days div{
-				width: calc(100%/7);
-			}
-			.prev-date{
-				opacity: 0.5;
-			}
-
-			</style>
+		<title>Rideshark</title>
+		<link rel="stylesheet" href="style.css" />	
 	</head>
 <body>
-
 	<h1>Logged Commutes</h1>
-	<p>More functionality can go here</p> 
-	<div class="calendar">
-		<div class="month">
 
-			<i class="prev">prev</i>
-			<div class="date">
-				<h1></h1>
-				<!-- <p></p> -->
-			</div>
-			<i class="next">next</i>
-
+	<div id="calendarView">
+		<h3 id="monthDisplay"></h3>
+		<div>
+			<button id="backButton">Back</button>
+			<button id="nextButton">Next</button>
 		</div>
-		<div class="weekdays">
+
+		<div id="weekdays">
 			<div>Sun</div>
 			<div>Mon</div>
 			<div>Tue</div>
@@ -57,28 +24,24 @@
 			<div>Fri</div>
 			<div>Sat</div>
 		</div>
-		<div class="days"></div>
+		<div id="calendar"></div>
 	</div>
 
-	<div class="summary">
-		<!-- TODO format/class-ify these -->
+	<div id="summary">
 		<h4>Trips Taken</h4>
-		<p>(Selected date goes here)</p>
-
-		<div class="trip-chips"></div>
-
-		<!-- TODO padding, toggle display -->
-		<input type="button" value="Log A Trip">
+		<div id="trip-chips"></div>
+		<input id="logButton" type="button" value="Log a Trip" onclick="return toggleForm();">
 	</div>
 
-	<form name="logTrip" onsubmit="return userSubmit();">
-		<!-- TODO required, validation, toggle display -->
-		Label: <input type="text" id="eLabel">
-		Type: <input type="text" id="eType">
+	<div id="formContainer">
+		<form name="logTrip" id="logForm" onsubmit="return userSubmit();">
+			Date: <input type="number" id="fDate" required><br>
+			Label: <input type="text" id="fLabel" required><br>
+			Type: <input type="text" id="fType" required><br>
 
-		<input type="submit">
-	</form>
-
+			<input type="submit" id="submitButton">
+		</form>
+	</div>
 	
 	<script src="script.js"></script>
 </body>

@@ -1,112 +1,137 @@
-const date = new Date();
+let monthNav = 0;
+let clickedDay = null; 
 
-let clicked = null;
+const calendar = document.getElementById('calendar');
 
-const renderCalendar = () => {
-	date.setDate(1);
+function loadCalendar() {
 
-	const monthDays = document.querySelector(".days");
-	
-	const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+	const dt = new Date();
 
-	const prevLastDay = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+	if (monthNav !== 0) dt.setMonth(new Date().getMonth() + monthNav);
 
-	const firstDayIndex = date.getDay();
+	const month = dt.getMonth();
+	const year = dt.getFullYear();
 
-	const months = [
-		"January",
-		"February",
-		"March",
-		"April",
-		"May",
-		"June",
-		"July",
-		"August",
-		"September",
-		"October",
-		"November",
-		"December",
-	  ];
+	document.getElementById('monthDisplay').innerText = `${dt.toLocaleDateString('en-us', {month: 'long'})} ${year}`;
 
-	document.querySelector(".date h1").innerHTML = months[date.getMonth()];
+	// current month date variables
+	const firstDayIndex = new Date(year, month, 1).getDay(); 
+	const lastDayIndex = new Date(year, month + 1, 0).getDay(); 
+	const lastDayOfMonth = new Date(year, month + 1, 0).getDate(); 
 
-	let days = "";
+	// previous month's end date
+	const lastDayOfPrevious = new Date(year, month, 0).getDate(); 
 
-	// TODO could create date objects (year, month, day) inside loop and place day value inside div
+	// room left in final week of current month for next month's first week
+	const finalWeek = 6 - lastDayIndex; 
 
-	for (let x = firstDayIndex; x > 0; x--){
-		days +=`<div class="prev-date">${prevLastDay - x + 1}</div>`;
+
+	/********** populating calendar starts here **********/
+	calendar.innerHTML = '';
+
+	// last week of the previous month
+	for (let i = firstDayIndex; i > 0; i--) {
+		const daySquare = document.createElement('div');
+		daySquare.classList.add('padding');
+
+		daySquare.innerText = lastDayOfPrevious - i + 1; 
+
+		daySquare.addEventListener('click', () => displaySummary(lastDayOfPrevious - i + 1)); 
+
+		calendar.appendChild(daySquare);	
 	}
 
-	for (let i = 1; i<= lastDay; i++){
-		days += `<div class="curr-date">${i}</div>`;
+	// days in current month
+	for (let j = 1; j <= lastDayOfMonth; j++) {
+		const daySquare = document.createElement('div');
+		daySquare.classList.add('day');
+
+		daySquare.innerText = j;
+		daySquare.addEventListener('click', () => displaySummary(j));
+
+		calendar.appendChild(daySquare);
 	}
 
-	// TODO next month's first days 
-	
-	monthDays.innerHTML = days;
-	// alert(monthDays.innerHTML);
+	// first week of the following month
+	for (let k = 1; k <= finalWeek; k++) {
+		const daySquare = document.createElement('div');
+		daySquare.classList.add('padding');
 
-};
+		daySquare.innerText = k; 
+		daySquare.addEventListener('click', () => displaySummary(k));
 
-renderCalendar();
+		calendar.appendChild(daySquare);
+	}
+}
 
-document.querySelector(".prev").addEventListener("click", () => {
-	date.setMonth(date.getMonth() - 1);
-	renderCalendar();
-});
+document.getElementById('nextButton').addEventListener('click', () => {
+	monthNav++;
+	loadCalendar();
+	});
 
-document.querySelector(".next").addEventListener("click", () => {
-	date.setMonth(date.getMonth() + 1);
-	renderCalendar();
-});
+document.getElementById('backButton').addEventListener('click', () => {
+	monthNav--;
+	loadCalendar();
+	});
 
-// alert(document.querySelector(".date h1").innerHTML);
 
-document.querySelector(".days").addEventListener("click", () => {
-	alert("date is clickable!");
-	// alert(document.getElementById(".days div").innerHTML);
-});
+loadCalendar();
+
+
+function displaySummary(date) {
+
+	clickedDay = date;
+	const filteredEntries = entryArr.filter(entry => entry.date == date);
+
+	if (filteredEntries.length > 0) {
+		document.getElementById("trip-chips").innerHTML = `<div>${filteredEntries}</div>`
+	} else {
+		document.getElementById("trip-chips").innerHTML = `<div>You have no data on this date</div>`;
+	}
+}
 
 const entryArr = [];
 
-class Entry{
-	constructor(date, label, type){
+class Entry {
+
+	constructor(date, label, type) {
 		this.date = date;
 		this.label = label;
 		this.type = type;
 		
-		 entryArr.push(this);
-		
+		entryArr.push(this);
 	}
-
-	toString(){
+	toString() {
 		return JSON.stringify(this);
 	}
-	
 }
 
-const entryStorage = window.localStorage;
-
-// const filterEntriesByDate = () => {
-// };
-
-
-const entry0 = new Entry("March", "did something", "drove carpool");
-const entry1 = new Entry("April", "things", "carpool things");
-const entry2 = new Entry("March", "did something", "some stuff");
-
-let filteredEntries = entryArr.filter(entry => entry.date === "March");
-// document.querySelector(".trip-chips").innerHTML = `<div>${filteredEntries}</div>`
-document.querySelector(".trip-chips").innerHTML = `<div>${entryArr}</div>`
+const entry0 = new Entry(4, "did something", "drove carpool");
+const entry1 = new Entry(7, "things", "carpool things");
+const entry2 = new Entry(9, "did something else", "some stuff");
 
 function userSubmit() {
-	userEntry = new Entry("June", document.getElementById("eLabel").value, document.getElementById("eType").value);
 
-	// TODO function to load filtered entries instead of calling document.etc each time
-	document.querySelector(".trip-chips").innerHTML = `<div>${entryArr}</div>`
+	userDate = document.getElementById("fDate").value;
+	userLabel = document.getElementById("fLabel").value;
+	userType = document.getElementById("fType").value;
+
+	userEntry = new Entry(userDate, userLabel, userType);
+
+	document.getElementById('formContainer').style.visibility = 'hidden';
+	document.getElementById("logForm").reset();
 	return false;
 };
+
+
+let displayBool = false;
+
+function toggleForm() {
+	
+	document.getElementById('formContainer').style.visibility = displayBool ? 'hidden' : 'visible';
+	displayBool = !displayBool;
+}
+
 
 
 
