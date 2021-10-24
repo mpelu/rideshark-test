@@ -15,23 +15,32 @@ function loadCalendar(){
 	document.getElementById('monthDisplay').innerText = `${dt.toLocaleDateString('en-us', {month: 'long'})} ${year}`;
 
 	// TODO following two blocks can be refactored (iasha)
-	const firstDayOfMonth = new Date(year, month, 1);
-	const lastDayOfMonth = new Date(year, month + 1, 0).getDate();
+	// const firstDayOfMonth = new Date(year, month, 1);
 	
-	const startDayOfWeek = firstDayOfMonth.toLocaleDateString('en-us', { weekday: 'long'});
-	const endDayOfWeek = lastDayOfMonth.toLocaleDateString('en-us', { weekday: 'long'});
+	const firstDayIndex = dt.getDay();
 
-	const paddingDaysStart = weekdays.indexOf(startDayOfWeek);
-	const paddingDaysEnd = weekdays.indexOf(endDayOfWeek);
+	const lastDayOfPrevious = new Date(year, month, 0).getDate();
 
-	const finalWeek = 7 ; // TODO = 7 - lastDayIndex - 1;
+	const lastDayOfMonth = new Date(year, month + 1, 0).getDate();
+
+	const lastDayIndex = new Date(year, month + 1, 0).getDay();//TODO lastDayOfMonth.getDay();
+
+	const finalWeek = 6 - lastDayIndex; 
+	
+	// const startDayOfWeek = firstDayOfMonth.toLocaleDateString('en-us', { weekday: 'long'});
+	// const endDayOfWeek = lastDayOfMonth.toLocaleDateString('en-us', { weekday: 'long'});
+
+	// const paddingDaysStart = weekdays.indexOf(startDayOfWeek);
+	// const paddingDaysEnd = weekdays.indexOf(endDayOfWeek);
+
+
 
 
 	// populating calendar starts here
 	calendar.innerHTML = '';
 
 	// last week of the previous month
-	for(let i = firstDayOfMonth; i > 0; i--){
+	for(let i = firstDayIndex; i > 0; i--){
 
 		// TODO = prevLastDay - x + 1
 
