@@ -1,14 +1,12 @@
 let monthNav = 0;
 
 const calendar = document.getElementById('calendar');
-// const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 function loadCalendar(){
 	const dt = new Date();
 
 	if(monthNav !== 0) dt.setMonth(new Date().getMonth() + monthNav);
 
-	const day = dt.getDate();
 	const month = dt.getMonth();
 	const year = dt.getFullYear();
 
@@ -47,7 +45,6 @@ function loadCalendar(){
 		daySquare.classList.add('day');
 
 		daySquare.innerText = j;
-
 		daySquare.addEventListener('click', () => console.log(j));
 
 		calendar.appendChild(daySquare);
@@ -59,7 +56,6 @@ function loadCalendar(){
 		daySquare.classList.add('padding');
 
 		daySquare.innerText = k; 
-
 		daySquare.addEventListener('click', () => console.log(k));
 
 		calendar.appendChild(daySquare);
@@ -81,12 +77,70 @@ document.getElementById('backButton').addEventListener('click', () => {
 loadCalendar();
 
 
+
+const entryArr = [];
+
+class Entry{
+	constructor(date, label, type){
+		this.date = date;
+		this.label = label;
+		this.type = type;
+		
+		 entryArr.push(this);
+	}
+
+	toString(){
+		return JSON.stringify(this);
+	}
+	
+}
+
+// const entryStorage = window.localStorage;
+
+const entry0 = new Entry("March", "did something", "drove carpool");
+const entry1 = new Entry("April", "things", "carpool things");
+const entry2 = new Entry("March", "did something", "some stuff");
+
+let filteredEntries = entryArr.filter(entry => entry.date === "March");
+// document.querySelector(".trip-chips").innerHTML = `<div>${filteredEntries}</div>`
+document.getElementById("trip-chips").innerHTML = `<div>${entryArr}</div>`
+// document.querySelector(".trip-chips").innerHTML = `<div>${entryArr}</div>`
+
+console.log(entryArr);
+
+function userSubmit() {
+	userEntry = new Entry("June", document.getElementById("eLabel").value, document.getElementById("eType").value);
+
+	// TODO function to load filtered entries instead of calling document.etc each time
+	document.getElementById("trip-chips").innerHTML = `<div>${entryArr}</div>`
+
+	// TODO visibility = hidden
+	return false;
+};
+
+
+
+
+
 let clicked = null;
 // let entries = localStorage.getItem('entries') ? JSON.parse(localStorage.getItem('entries')) : [];
 
 function displaySummary(date){
 	clicked = date;
 	// TODO
+}
+
+
+
+function toggleForm(){
+	// TODO
+	document.getElementById('weekdays').style.color = 'blue';
+	alert("hello");
+	var form = document.getElementById('logForm');
+	let visibility = form.style.visibility;
+	visibility = visibility === 'visible' ? 'hidden' : 'visible';
+
+
 }
 
 
