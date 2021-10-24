@@ -14,34 +14,20 @@ function loadCalendar(){
 
 	document.getElementById('monthDisplay').innerText = `${dt.toLocaleDateString('en-us', {month: 'long'})} ${year}`;
 
-	// const firstDayOfMonth = new Date(year, month, 1);
-	// const dateString = firstDayOfMonth.toLocaleDateString('en-us', options);
+	// current month date variables
+	const firstDayIndex = new Date(year, month, 1).getDay(); 
+	const lastDayIndex = new Date(year, month + 1, 0).getDay(); 
+	const lastDayOfMonth = new Date(year, month + 1, 0).getDate(); 
 
-	const lastDayOfMonth = new Date(year, month + 1, 0).getDate(); //31
+	// previous month's last date
+	const lastDayOfPrevious = new Date(year, month, 0).getDate(); 
 
-	const firstDayIndex = new Date(year, month, 1).getDay(); //5
-
-	const lastDayOfPrevious = new Date(year, month, 0).getDate(); //30
-
-	const lastDayIndex = new Date(year, month + 1, 0).getDay(); //0
-
-	const finalWeek = 6 - lastDayIndex; //6
-
-
-	
-	// const startDayOfWeek = firstDayOfMonth.toLocaleDateString('en-us', { weekday: 'long'});
-	// const endDayOfWeek = lastDayOfMonth.toLocaleDateString('en-us', { weekday: 'long'});
-
-	// const paddingDaysStart = weekdays.indexOf(startDayOfWeek);
-	// const paddingDaysEnd = weekdays.indexOf(endDayOfWeek);
-
+	// room left in final week of current month for next month's first week
+	const finalWeek = 6 - lastDayIndex; 
 
 
 	// populating calendar starts here
 	calendar.innerHTML = '';
-	// const daySquare = document.createElement('div');
-	// daySquare.classList.add('day');
-
 
 	// last week of the previous month
 	for(let i = firstDayIndex; i > 0; i--){
