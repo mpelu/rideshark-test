@@ -5,29 +5,28 @@
 		<meta charset="utf-8">
 
 			<style>
-			.calendar{				/* height: 60%;				width: 60%; */			}
-			.month{				/* display: flex; */			}
-			.month h1{}
-			.month i{
-				cursor: pointer;
-			}
-			.weekdays{
+
+			#weekdays{
+				width: 100%;
 				display: flex;
 			}
-			.weekdays div{
+			#weekdays div{
 				width: calc(100%/7);
-				/* display: flex; */
 			}
-			.days{
-				/* width: 100%; */
+			#calendar{
+				width: 100%;
+				flex-wrap: wrap;
+			}
+			.day{
+				width: calc(100%/7);
 				display: flex;
 				flex-wrap: wrap;
 				cursor: pointer;
 			}
-			.days div{
+			/* .days div{
 				width: calc(100%/7);
-			}
-			.prev-date{
+			} */
+			.paddingDays{
 				opacity: 0.5;
 			}
 
@@ -37,17 +36,13 @@
 
 	<h1>Logged Commutes</h1>
 	<p>More functionality can go here</p> 
-	<div class="calendarView">
-		<div class="month">
-
+	<div id="calendarView">
+		<div id="monthDisplay"></div>
+		<div>
 			<button id="backButton">Back</button>
-			<div class="date">
-				<h1></h1>
-				<!-- <p></p> -->
-			</div>
 			<button id="nextButton">Next</button>
-
 		</div>
+		
 		<div id="weekdays">
 			<div>Sun</div>
 			<div>Mon</div>
@@ -60,12 +55,12 @@
 		<div id="calendar"></div>
 	</div>
 
-	<div class="summary">
+	<div id="summary">
 		<!-- TODO format/class-ify these -->
 		<h4>Trips Taken</h4>
 		<p>(Selected date goes here)</p>
 
-		<div class="trip-chips"></div>
+		<div id="trip-chips"></div>
 
 		<!-- TODO padding, toggle display -->
 		<input type="button" value="Log A Trip">
