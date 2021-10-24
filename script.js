@@ -1,13 +1,13 @@
 let monthNav = 0;
-let clickedDay = null; //TODO initialize to current date
-let entries = localStorage.getItem('entries') ? JSON.parse(localStorage.getItem('entries')) : [];
+let clickedDay = null; 
 
 const calendar = document.getElementById('calendar');
 
-function loadCalendar(){
+function loadCalendar() {
+
 	const dt = new Date();
 
-	if(monthNav !== 0) dt.setMonth(new Date().getMonth() + monthNav);
+	if (monthNav !== 0) dt.setMonth(new Date().getMonth() + monthNav);
 
 	const month = dt.getMonth();
 	const year = dt.getFullYear();
@@ -30,7 +30,7 @@ function loadCalendar(){
 	calendar.innerHTML = '';
 
 	// last week of the previous month
-	for(let i = firstDayIndex; i > 0; i--){
+	for (let i = firstDayIndex; i > 0; i--) {
 		const daySquare = document.createElement('div');
 		daySquare.classList.add('padding');
 
@@ -42,7 +42,7 @@ function loadCalendar(){
 	}
 
 	// days in current month
-	for(let j = 1; j <= lastDayOfMonth; j++){
+	for (let j = 1; j <= lastDayOfMonth; j++) {
 		const daySquare = document.createElement('div');
 		daySquare.classList.add('day');
 
@@ -53,7 +53,7 @@ function loadCalendar(){
 	}
 
 	// first week of the following month
-	for(let k = 1; k <= finalWeek; k++){
+	for (let k = 1; k <= finalWeek; k++) {
 		const daySquare = document.createElement('div');
 		daySquare.classList.add('padding');
 
@@ -78,86 +78,58 @@ document.getElementById('backButton').addEventListener('click', () => {
 loadCalendar();
 
 
-function displaySummary(date){
+function displaySummary(date) {
+
 	clickedDay = date;
 	const filteredEntries = entryArr.filter(entry => entry.date == date);
 
-	if(filteredEntries.length > 0){
+	if (filteredEntries.length > 0) {
 		document.getElementById("trip-chips").innerHTML = `<div>${filteredEntries}</div>`
-	}else{
-		document.getElementById("trip-chips").innerHTML = `<div>No entries for this date</div>`;
+	} else {
+		document.getElementById("trip-chips").innerHTML = `<div>You have no data on this date</div>`;
 	}
-
-	
 }
+
 const entryArr = [];
-class Entry{
-	constructor(date, label, type){
+
+class Entry {
+
+	constructor(date, label, type) {
 		this.date = date;
 		this.label = label;
 		this.type = type;
 		
 		entryArr.push(this);
-		console.log(this);
 	}
-	toString(){
+	toString() {
 		return JSON.stringify(this);
 	}
 }
+
 const entry0 = new Entry(4, "did something", "drove carpool");
 const entry1 = new Entry(7, "things", "carpool things");
-const entry2 = new Entry(9, "did something", "some stuff");
-
-entries.push({
-	date: 4,
-	label: "persist- did something",
-	type: "drove carpool",
-});
-entries.push({
-	date: 7,
-	label: "persist- things", 
-	type: "drove carpool",
-});
-entries.push({
-	date: 9,
-	label: "persist- did something else",
-	type: "drove carpool",
-});
-// localStorage.clear();
-console.log(localStorage);
+const entry2 = new Entry(9, "did something else", "some stuff");
 
 function userSubmit() {
-	userEntry = new Entry(10, document.getElementById("eLabel").value, document.getElementById("eType").value);
-	entries.push({
-		date: 10,
-		label: document.getElementById("eLabel").value,
-		type: document.getElementById("eType").value,
-	});
-	localStorage.setItem('entries', JSON.stringify(entries));
 
-	// entryArr.push(userEntry);
+	userDate = document.getElementById("fDate").value;
+	userLabel = document.getElementById("fLabel").value;
+	userType = document.getElementById("fType").value;
 
-	// TODO function to load filtered entries instead of calling document.etc each time
+	userEntry = new Entry(userDate, userLabel, userType);
 
-
-	// TODO: input text disappear
-	// TODO: visibility = false
+	document.getElementById('formContainer').style.visibility = 'hidden';
+	document.getElementById("logForm").reset();
 	return false;
 };
 
 
+let displayBool = false;
 
-
-
-function toggleForm(){
-	// TODO
-	document.getElementById('weekdays').style.color = 'blue';
-	alert("hello");
-	var form = document.getElementById('logForm');
-	let visibility = form.style.visibility;
-	visibility = visibility === 'visible' ? 'hidden' : 'visible';
-
-
+function toggleForm() {
+	
+	document.getElementById('formContainer').style.visibility = displayBool ? 'hidden' : 'visible';
+	displayBool = !displayBool;
 }
 
 

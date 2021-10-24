@@ -1,46 +1,13 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Rideshark</title>
 		<meta charset="utf-8">
-			<style>
-			#monthDisplay{
-				margin-bottom: 10px;
-			}
-			button{
-				margin-bottom: 10px;
-			}
-			#weekdays{
-				margin-bottom: 10px;
-				display: flex;
-				font-weight: bold;
-			}
-			#weekdays div{
-				width: calc(100%/7);
-			}
-			#calendar {
-				display: flex;
-				flex-wrap: wrap;
-}
-			.day,
-			.padding{
-				width: calc(100%/7);
-				cursor: pointer;
-			}
-			.padding{
-				opacity: 0.5;
-			}
-			/* TODO trip chips padding */
-			#eLabel, #eType, #submitButton{
-				margin-top: 10px;
-				/* visibility: hidden; */
-			}
-			</style>
+		<title>Rideshark</title>
+		<link rel="stylesheet" href="style.css" />	
 	</head>
 <body>
 	<h1>Logged Commutes</h1>
-	<p>More functionality can go here</p> 
-	
+
 	<div id="calendarView">
 		<h3 id="monthDisplay"></h3>
 		<div>
@@ -61,24 +28,20 @@
 	</div>
 
 	<div id="summary">
-		<!-- TODO format/class-ify these -->
 		<h4>Trips Taken</h4>
-		<p>(Selected date goes here)</p>
-
 		<div id="trip-chips"></div>
-
-		<!-- TODO toggle display -->
 		<input id="logButton" type="button" value="Log a Trip" onclick="return toggleForm();">
 	</div>
 
-	<form name="logTrip" id="logForm" onsubmit="return userSubmit();">
-		<!-- TODO validation, toggle display -->
-		Label: <input type="text" id="eLabel"><br>
-		Type: <input type="text" id="eType"><br>
+	<div id="formContainer">
+		<form name="logTrip" id="logForm" onsubmit="return userSubmit();">
+			Date: <input type="number" id="fDate" required><br>
+			Label: <input type="text" id="fLabel" required><br>
+			Type: <input type="text" id="fType" required><br>
 
-		<input type="submit" id="submitButton">
-	</form>
-
+			<input type="submit" id="submitButton">
+		</form>
+	</div>
 	
 	<script src="script.js"></script>
 </body>

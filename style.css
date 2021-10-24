@@ -1,0 +1,34 @@
+#monthDisplay,
+button,
+#trip-chips{
+    margin-bottom: 10px;
+}
+#weekdays{
+    margin-bottom: 10px;
+    display: flex;
+    font-size: large;
+    font-weight: bold;
+}
+#weekdays div,
+.day,
+.padding{
+    width: calc(100%/7);
+}
+#calendar {
+    display: flex;
+    flex-wrap: wrap;
+}
+.day,
+.padding{
+    font-size: large;
+    cursor: pointer;
+}
+.padding{
+    opacity: 0.5;
+}
+#formContainer{
+    visibility: hidden;
+}
+#fDate, #fLabel, #fType, #submitButton{
+    margin-top: 10px;
+}
