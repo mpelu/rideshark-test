@@ -39,38 +39,45 @@ function loadCalendar(){
 
 	// populating calendar starts here
 	calendar.innerHTML = '';
-	const daySquare = document.createElement('div');
-	daySquare.classList.add('day');
+	// const daySquare = document.createElement('div');
+	// daySquare.classList.add('day');
 
 
 	// last week of the previous month
 	for(let i = firstDayIndex; i > 0; i--){
-		// alert("prev"); if click on month buttons???
-
-		daySquare.innerText = lastDayOfPrevious - i - 1;
+		const daySquare = document.createElement('div');
 		daySquare.classList.add('padding');
 
+		daySquare.innerText = lastDayOfPrevious - i + 1; 
+
+		daySquare.addEventListener('click', () => console.log(lastDayOfPrevious - i + 1)); 
+
+		calendar.appendChild(daySquare);	
 	}
 
 	// days in current month
 	for(let j = 1; j <= lastDayOfMonth; j++){
+		const daySquare = document.createElement('div');
+		daySquare.classList.add('day');
 
 		daySquare.innerText = j;
 
+		daySquare.addEventListener('click', () => console.log(j));
+
+		calendar.appendChild(daySquare);
 	}
 
 	// first week of the following month
 	for(let k = 1; k <= finalWeek; k++){
-
-		daySquare.innerText = k;
-		
+		const daySquare = document.createElement('div');
 		daySquare.classList.add('padding');
 
-		// alert("next"); works
-		
+		daySquare.innerText = k; 
+
+		daySquare.addEventListener('click', () => console.log(k));
+
+		calendar.appendChild(daySquare);
 	}
-
-
 
 }
 
