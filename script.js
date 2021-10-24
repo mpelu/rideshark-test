@@ -1,7 +1,7 @@
 let monthNav = 0;
 
 const calendar = document.getElementById('calendar');
-const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+// const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 function loadCalendar(){
 	const dt = new Date();
@@ -14,18 +14,20 @@ function loadCalendar(){
 
 	document.getElementById('monthDisplay').innerText = `${dt.toLocaleDateString('en-us', {month: 'long'})} ${year}`;
 
-	// TODO following two blocks can be refactored (iasha)
 	// const firstDayOfMonth = new Date(year, month, 1);
-	
-	const firstDayIndex = dt.getDay();
+	// const dateString = firstDayOfMonth.toLocaleDateString('en-us', options);
 
-	const lastDayOfPrevious = new Date(year, month, 0).getDate();
+	const lastDayOfMonth = new Date(year, month + 1, 0).getDate(); //31
 
-	const lastDayOfMonth = new Date(year, month + 1, 0).getDate();
+	const firstDayIndex = new Date(year, month, 1).getDay(); //5
 
-	const lastDayIndex = new Date(year, month + 1, 0).getDay();//TODO lastDayOfMonth.getDay();
+	const lastDayOfPrevious = new Date(year, month, 0).getDate(); //30
 
-	const finalWeek = 6 - lastDayIndex; 
+	const lastDayIndex = new Date(year, month + 1, 0).getDay(); //0
+
+	const finalWeek = 6 - lastDayIndex; //6
+
+
 	
 	// const startDayOfWeek = firstDayOfMonth.toLocaleDateString('en-us', { weekday: 'long'});
 	// const endDayOfWeek = lastDayOfMonth.toLocaleDateString('en-us', { weekday: 'long'});
@@ -35,30 +37,39 @@ function loadCalendar(){
 
 
 
-
 	// populating calendar starts here
 	calendar.innerHTML = '';
+	const daySquare = document.createElement('div');
+	daySquare.classList.add('day');
+
 
 	// last week of the previous month
 	for(let i = firstDayIndex; i > 0; i--){
+		// alert("prev"); if click on month buttons???
 
-		// TODO = prevLastDay - x + 1
+		daySquare.innerText = lastDayOfPrevious - i - 1;
+		daySquare.classList.add('padding');
 
 	}
 
 	// days in current month
 	for(let j = 1; j <= lastDayOfMonth; j++){
 
-		// TODO
-		
+		daySquare.innerText = j;
+
 	}
 
 	// first week of the following month
 	for(let k = 1; k <= finalWeek; k++){
 
-		// TODO = j
+		daySquare.innerText = k;
+		
+		daySquare.classList.add('padding');
+
+		// alert("next"); works
 		
 	}
+
 
 
 }
