@@ -1,6 +1,43 @@
-const date = new Date();
-
+let nav = 0;
 let clicked = null;
+// let entries = localStorage.getItem('entries') ? JSON.parse(localStorage.getItem('entries')) : [];
+
+const calendar = document.getElementById('calendar');
+const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+// const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric'};
+
+
+function displaySummary(date){
+	clicked = date;
+	// TODO
+}
+
+function loadCalendar(){
+	const dt = new Date();
+
+	const day = dt.getDate();
+	const month = dt.getMonth();
+	const year = dt.getFullYear();
+
+
+	const firstDayOfMonth = new Date(year, month, 1);
+	const lastDayOfMonth = new Date(year, month + 1, 0).getDate();
+	
+	const startDayOfWeek = firstDayOfMonth.toLocaleDateString('en-us', { weekday: 'long'});
+
+	calendar.innerHTML = '';
+
+	// Two-pointer loop??
+}
+
+
+
+
+
+
+
+const date = new Date();
 
 const renderCalendar = () => {
 	date.setDate(1);
