@@ -1,8 +1,19 @@
+/**
+ * Class populates HTML calendar with year/month-accurate dates
+ * 
+ * references: 
+ * https://github.com/portexe/VanillaCalendar
+ * https://github.com/lashaNoz/Calendar
+ */
+
 let monthNav = 0;
 let clickedDay = null; 
 
 const calendar = document.getElementById('calendar');
 
+/**
+ * Populate calendar based on current month/year, add event listeners to day elements
+ */
 function loadCalendar() {
 
 	const dt = new Date();
@@ -29,7 +40,7 @@ function loadCalendar() {
 	/********** populating calendar starts here **********/
 	calendar.innerHTML = '';
 
-	// last week of the previous month
+	// populate last week of the previous month
 	for (let i = firstDayIndex; i > 0; i--) {
 		const daySquare = document.createElement('div');
 		daySquare.classList.add('padding');
@@ -41,7 +52,7 @@ function loadCalendar() {
 		calendar.appendChild(daySquare);	
 	}
 
-	// days in current month
+	// populate days in current month
 	for (let j = 1; j <= lastDayOfMonth; j++) {
 		const daySquare = document.createElement('div');
 		daySquare.classList.add('day');
@@ -52,7 +63,7 @@ function loadCalendar() {
 		calendar.appendChild(daySquare);
 	}
 
-	// first week of the following month
+	// populate first week of the following month 
 	for (let k = 1; k <= finalWeek; k++) {
 		const daySquare = document.createElement('div');
 		daySquare.classList.add('padding');
@@ -77,7 +88,10 @@ document.getElementById('backButton').addEventListener('click', () => {
 
 loadCalendar();
 
-
+/**
+ * Pull and display entries assigned to chosen date. If not return message.
+ * @param date - Calendar date clicked on by user.
+ */
 function displaySummary(date) {
 
 	clickedDay = date;
@@ -92,6 +106,9 @@ function displaySummary(date) {
 
 const entryArr = [];
 
+/**
+ * Data structure class. Constructor builds object and pushes it to object array.
+ */
 class Entry {
 
 	constructor(date, label, type) {
@@ -110,6 +127,11 @@ const entry0 = new Entry(4, "did something", "drove carpool");
 const entry1 = new Entry(7, "things", "carpool things");
 const entry2 = new Entry(9, "did something else", "some stuff");
 
+/**
+ * Create Entry class object based on user's inputted values 
+ * Side-effect: Sets form HTML element to hidden
+ * @returns False to keep HTML element on screen
+ */
 function userSubmit() {
 
 	userDate = document.getElementById("fDate").value;
@@ -126,6 +148,9 @@ function userSubmit() {
 
 let displayBool = false;
 
+/**
+ * Push Log a Trip button to toggle form visibility
+ */
 function toggleForm() {
 	
 	document.getElementById('formContainer').style.visibility = displayBool ? 'hidden' : 'visible';
